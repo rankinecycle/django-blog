@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<style type="text/css">
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="text"] {
+  margin-bottom: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: -1px; 2 password fields must be close
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.h3{
+	text-align:center;
+}
+/*for aligning Register an account to center*/
+</style>
+<!-- autofocus is for the first thing to be highlighted -->
+<main class="form-signin w-100 m-auto">
+  <form method = "post">{% csrf_token %}
+<div class="d-flex flex-column pb3"> <!-- pb: padding bottom , alt is for google searches-->
+  <img class ="img-fluid mx-auto d-block" src="{% static 'banteringly.png' %}" alt="banteringly" width="200" height="150"> 
+</div>
+    <h1 class="h3 mb-3 fw-normal">Register an Account</h1>
+    <div class="form-floating">
+      <input type="email" name = "email" class="form-control" id="inputEmail" placeholder="Email address" required autofocus>
+    </div>
+    <div class="form-floating">
+      <input type="text" name = 'username' class="form-control" id="inputUsername" placeholder="Username" required>
+    </div>
+    <div class="form-floating">
+      <input type="password" name = 'password1' class="form-control" id="inputPassword1" placeholder="Password" required>
+    </div>
+    <div class="form-floating">
+      <input type="password" name = 'password2' class="form-control" id="inputPassword2" placeholder="Confirm Password" required>
+    </div>
+
+
+	{% for field in registration_form %}
+		<p>
+		{% for error in field.erros %}
+			<p style="color: red;">{{error}}</p>
+		{% endfor %}
+		</p>
+	{% endfor %}
+		
+	{% if registration_form.non_field_errors %}
+		<div style="color:red;">
+			<p>{{registration_form.non_field_errors}}</p>
+		</div>
+	{% endif %}
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+
+  </form>
+</main>
+
+{% endblock content %}
+

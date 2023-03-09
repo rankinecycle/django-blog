@@ -1,0 +1,34 @@
+<style type="text/css">
+	.card{
+		max-width: 700px;
+		width: 100%;
+	}
+	.card-body{
+		padding: 20px;
+		width: 100%
+	}
+</style>
+<!-- blog_post in edit_blog_view and in forms.py-blog-->
+{% if comment %}
+<div class="container">
+	<div class="row">
+		<!-- Blog Post -->
+		<div class="card m-auto">
+			<a href="{% url 'blog:detail' post.slug %}">
+				<img class="card-img-top" src="{{blog_post.image.url}}">
+			</a>
+			<div class="card-body mt-2 mb-2">
+				<p class="card-text">{{comment.comment_text|safe|truncatechars:250}}</p>
+				<p>
+				{% if comment.author == request.user %}
+					<a href="{% url 'comments:edit' comment.slug %}" class="btn btn-primary">Update</a>
+				{% endif %}
+				</p>
+			</div>
+			<div class="card-footer text-muted">
+			  Updated on {{comment.date_updated}} by {{comment.author}}
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}

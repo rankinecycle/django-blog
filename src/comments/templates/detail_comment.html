@@ -1,0 +1,35 @@
+	{% extends "base.html" %}
+
+	{% block content %}
+	<style type="text/css">
+		.card {
+			max-width: 700px;
+		}
+
+		.container{
+			padding: 20px;
+		}
+	</style>
+
+<div class = 'container'>
+	<div class="row">
+		<!-- Blog Post -->
+		<div class="card m-auto">
+			<div class="card-body my-2">
+				<h2 class="card-title">{{comment.comment_text}}</h2>
+
+				<p>
+				{% if comment.author == request.user %}
+					<a href= "{% url 'comment:edit' comment.slug %}" class="btn btn-primary">Update</a>
+					<!-- Adding a button for editing blog post if user and post aurthor are same -->
+				{% endif %}
+				</p>
+			</div>
+			<div class="card-footer text-muted">
+				Updated on {{comment.date_updated}} bu {{comment.author}}	
+			</div>
+		</div>
+		<!-- End Blog Post -->
+
+	</div>		
+</div>
